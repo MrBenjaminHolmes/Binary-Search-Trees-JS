@@ -13,23 +13,20 @@ class Tree {
   }
 
   buildTree(sortedArray) {
-    console.log(sortedArray);
-    const midPoint = sortedArray[Math.floor(sortedArray.length / 2)];
-    const rootNode = new Node(midPoint);
+    if (sortedArray.length === 0) {
+      return null;
+    }
+    const midPoint = Math.floor(sortedArray.length / 2);
+
+    const rootNode = new Node(sortedArray[midPoint]);
+
+    const leftSubTree = sortedArray.slice(0, midPoint);
+    const rightSubTree = sortedArray.slice(midPoint + 1);
+    rootNode.right = this.buildTree(rightSubTree);
+    rootNode.left = this.buildTree(leftSubTree);
+
     return rootNode;
   }
 }
-module.exports = Tree;
 
-const prettyPrint = (node, prefix = "", isLeft = true) => {
-  if (node === null) {
-    return;
-  }
-  if (node.right !== null) {
-    prettyPrint(node.right, `${prefix}${isLeft ? "│   " : "    "}`, false);
-  }
-  console.log(`${prefix}${isLeft ? "└── " : "┌── "}${node.data}`);
-  if (node.left !== null) {
-    prettyPrint(node.left, `${prefix}${isLeft ? "    " : "│   "}`, true);
-  }
-};
+module.exports = Tree;
