@@ -24,8 +24,28 @@ class Tree {
     const rightSubTree = sortedArray.slice(midPoint + 1);
     rootNode.right = this.buildTree(rightSubTree);
     rootNode.left = this.buildTree(leftSubTree);
-
     return rootNode;
+  }
+
+  insert(value, root = this.root) {
+    if (root === null) {
+      this.root = new Node(value);
+      return;
+    }
+
+    if (value < root.data) {
+      if (root.left === null) {
+        root.left = new Node(value);
+      } else {
+        this.insert(value, root.left);
+      }
+    } else {
+      if (root.right === null) {
+        root.right = new Node(value);
+      } else {
+        this.insert(value, root.right);
+      }
+    }
   }
 }
 

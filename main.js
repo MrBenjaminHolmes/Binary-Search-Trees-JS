@@ -14,9 +14,10 @@ const prettyPrint = (node, prefix = "", isLeft = true) => {
   }
 };
 
-testArray = [1, 7, 4, 23, 8, 9, 4, 3, 5, 7, 9, 67, 6345, 324];
+testArray = [1, 4, 5, 8, 9, 12, 15, 16];
 
 newTree = new Tree(testArray);
 
 newTree.buildTree(testArray);
+newTree.insert(1234234);
 prettyPrint(newTree.root);
