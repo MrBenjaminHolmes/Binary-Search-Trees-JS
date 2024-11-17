@@ -18,6 +18,6 @@ testArray = [1, 4, 5, 8, 9, 12, 15, 16];
 
 newTree = new Tree(testArray);
 
-newTree.buildTree(testArray);
-newTree.insert(1234234);
+//newTree.delete(5);
+console.log(newTree.find(9));
 prettyPrint(newTree.root);

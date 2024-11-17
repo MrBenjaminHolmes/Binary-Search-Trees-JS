@@ -47,6 +47,53 @@ class Tree {
       }
     }
   }
+
+  delete(value, current = this.root, parent = null) {
+    if (current === null) {
+      return null;
+    }
+
+    if (value < current.data) {
+      current.left = this.delete(value, current.left, current);
+    } else if (value > current.data) {
+      current.right = this.delete(value, current.right, current);
+    } else {
+      if (current.left === null && current.right === null) {
+        // Case 1: No children (leaf node)
+        return null;
+      } else if (current.left === null) {
+        // Case 2: One child (right)
+        return current.right;
+      } else if (current.right === null) {
+        // Case 2: One child (left)
+        return current.left;
+      } else {
+        // Case 3: Two children
+        let successorNode = current.right;
+        while (successorNode.left !== null) {
+          successorNode = successorNode.left;
+        }
+        current.data = successorNode.data;
+        current.right = this.delete(successorNode.data, current.right);
+      }
+    }
+    return current;
+  }
+
+  find(data, node = this.root) {
+    if (node === null) {
+      return null;
+    }
+    if (data === node.data) {
+      return node;
+    }
+    if (data < node.data) {
+      return this.find(data, node.left);
+    }
+    if (data > node.data) {
+      return this.find(data, node.right);
+    }
+  }
 }
 
 module.exports = Tree;
