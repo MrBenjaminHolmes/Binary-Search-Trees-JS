@@ -94,6 +94,23 @@ class Tree {
       return this.find(data, node.right);
     }
   }
+  levelOrder(callback) {
+    if (typeof callback !== "function") {
+      throw new Error("A callback function is required.");
+    }
+
+    let queue = [];
+    console.log("BF Level Order::");
+    if (this.root) queue.push(this.root);
+
+    while (queue.length > 0) {
+      let currentNode = queue.shift();
+      callback(currentNode);
+
+      if (currentNode.left) queue.push(currentNode.left);
+      if (currentNode.right) queue.push(currentNode.right);
+    }
+  }
 }
 
 module.exports = Tree;

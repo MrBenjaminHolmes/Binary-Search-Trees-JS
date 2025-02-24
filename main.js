@@ -14,10 +14,11 @@ const prettyPrint = (node, prefix = "", isLeft = true) => {
   }
 };
 
-testArray = [1, 4, 5, 8, 9, 12, 15, 16];
+function printNode(node) {
+  console.log(node.data);
+}
+testArray = [1, 2, 3, 4, 5, 6];
 
 newTree = new Tree(testArray);
-
-//newTree.delete(5);
-console.log(newTree.find(9));
 prettyPrint(newTree.root);
+newTree.levelOrder(printNode);
