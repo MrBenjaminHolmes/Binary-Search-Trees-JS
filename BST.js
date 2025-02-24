@@ -111,6 +111,62 @@ class Tree {
       if (currentNode.right) queue.push(currentNode.right);
     }
   }
+  inOrder(callback) {
+    if (typeof callback !== "function") {
+      throw new Error("A callback function is required.");
+    }
+
+    let queue = [];
+    let current = this.root;
+
+    while (queue.length > 0 || current !== null) {
+      while (current !== null) {
+        queue.push(current);
+        current = current.left;
+      }
+
+      current = queue.pop();
+      callback(current);
+
+      current = current.right;
+    }
+  }
+  preOrder(callback) {
+    if (typeof callback !== "function") {
+      throw new Error("A callback function is required.");
+    }
+    let queue = [];
+    let current = this.root;
+
+    queue.push(current);
+
+    while (queue.length > 0) {
+      let current = queue.pop();
+      callback(current.data);
+
+      if (current.right !== null) {
+        queue.push(current.right);
+      }
+      if (current.left !== null) {
+        queue.push(current.left);
+      }
+    }
+  }
+  postOrder(callback) {
+    let queue = [];
+    let current = this.root;
+    queue.push(current);
+
+    while (queue.length > 0 || current !== null) {
+      while (current !== null) {
+        queue.push(current.data);
+        current = current.right;
+      }
+
+      current = queue.pop();
+      callback(current);
+    }
+  }
 }
 
 module.exports = Tree;

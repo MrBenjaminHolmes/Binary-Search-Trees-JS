@@ -15,10 +15,10 @@ const prettyPrint = (node, prefix = "", isLeft = true) => {
 };
 
 function printNode(node) {
-  console.log(node.data);
+  console.log(node);
 }
 testArray = [1, 2, 3, 4, 5, 6];
 
 newTree = new Tree(testArray);
 prettyPrint(newTree.root);
-newTree.levelOrder(printNode);
+newTree.postOrder(printNode);
