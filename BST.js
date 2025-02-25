@@ -153,18 +153,22 @@ class Tree {
     }
   }
   postOrder(callback) {
-    let queue = [];
+    //LEFT RIGHT ROOT
+    if (typeof callback !== "function") {
+      throw new Error("A callback function is required.");
+    }
+    let queue1 = [];
+    let queue2 = [];
     let current = this.root;
-    queue.push(current);
-
-    while (queue.length > 0 || current !== null) {
-      while (current !== null) {
-        queue.push(current.data);
-        current = current.right;
-      }
-
-      current = queue.pop();
-      callback(current);
+    queue1.push(current);
+    while (queue1.length > 0) {
+      let current = queue1.pop();
+      queue2.push(current);
+      if (current.left) queue1.push(current.left);
+      if (current.right) queue1.push(current.right);
+    }
+    while (queue2.length > 0) {
+      callback(queue2.pop().data);
     }
   }
 }
