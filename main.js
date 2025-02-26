@@ -14,11 +14,56 @@ const prettyPrint = (node, prefix = "", isLeft = true) => {
   }
 };
 
+function generateRandomArray(size, maxValue = 100) {
+  return Array.from(
+    new Set(
+      Array.from({ length: size }, () => Math.floor(Math.random() * maxValue))
+    )
+  );
+}
+
 function printNode(node) {
   console.log(node);
 }
-testArray = [1, 2, 3, 4, 5, 6];
 
-newTree = new Tree(testArray);
+newTree = new Tree(generateRandomArray(6, (maxValue = 100)));
 prettyPrint(newTree.root);
+console.log("Is Balanced: " + newTree.isBalanced());
+console.log("------------------------");
+console.log("Level Order Traversal:");
+newTree.levelOrder(printNode);
+console.log("------------------------");
+console.log("In Order Traversal:");
+newTree.inOrder(printNode);
+console.log("------------------------");
+console.log("Pre Order Traversal:");
+newTree.preOrder(printNode);
+console.log("------------------------");
+console.log("Post Order Traversal:");
 newTree.postOrder(printNode);
+console.log("------------------------");
+
+newTree.insert(300);
+newTree.insert(400);
+newTree.insert(500);
+
+console.log(newTree.isBalanced());
+newTree.rebalance();
+console.log("Rebalencing...");
+console.log(newTree.isBalanced());
+
+prettyPrint(newTree.root);
+
+console.log("------------------------");
+console.log("Level Order Traversal:");
+newTree.levelOrder(printNode);
+console.log("------------------------");
+console.log("In Order Traversal:");
+newTree.inOrder(printNode);
+console.log("------------------------");
+console.log("Pre Order Traversal:");
+newTree.preOrder(printNode);
+console.log("------------------------");
+console.log("Post Order Traversal:");
+newTree.postOrder(printNode);
+console.log("------------------------");

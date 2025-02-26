@@ -100,12 +100,11 @@ class Tree {
     }
 
     let queue = [];
-    console.log("BF Level Order::");
     if (this.root) queue.push(this.root);
 
     while (queue.length > 0) {
       let currentNode = queue.shift();
-      callback(currentNode);
+      callback(currentNode.data);
 
       if (currentNode.left) queue.push(currentNode.left);
       if (currentNode.right) queue.push(currentNode.right);
@@ -126,7 +125,7 @@ class Tree {
       }
 
       current = queue.pop();
-      callback(current);
+      callback(current.data);
 
       current = current.right;
     }
@@ -170,6 +169,51 @@ class Tree {
     while (queue2.length > 0) {
       callback(queue2.pop().data);
     }
+  }
+  height(node) {
+    if (node === null) {
+      return -1;
+    }
+    let left = this.height(node.left);
+    let right = this.height(node.right);
+    return 1 + Math.max(left, right);
+  }
+  depth(node) {
+    let current = this.root;
+    let depth = 0;
+
+    while (current !== null) {
+      if (node.data === current.data) {
+        return depth;
+      }
+
+      if (node.data < current.data) {
+        current = current.left;
+      } else {
+        current = current.right;
+      }
+
+      depth++;
+    }
+
+    return -1;
+  }
+  isBalanced(node = this.root) {
+    if (node === null) return true;
+
+    let leftHeight = this.height(node.left);
+    let rightHeight = this.height(node.right);
+
+    if (Math.abs(leftHeight - rightHeight) > 1) {
+      return false;
+    }
+
+    return this.isBalanced(node.left) && this.isBalanced(node.right);
+  }
+  rebalance() {
+    let values = [];
+    this.inOrder((data) => values.push(data));
+    this.root = this.buildTree(values);
   }
 }
 
